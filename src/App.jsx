@@ -69,12 +69,19 @@ function App() {
               id={language.id}
               key={language.id}
               title={language.title}
-              description={language.description}
               openId={openId}
               setOpenId={setOpenId}
             />
           })}
         </div>
+
+        <div className='paragraph'>
+          {languages.map(language =>
+            openId === language.id ? <p key={language.id}>{language.description}</p> : null
+          )}
+        </div>
+
+
 
       </div>
     </div>
