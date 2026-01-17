@@ -1,4 +1,4 @@
-/*import { useState } from 'react'*/
+import { useState } from 'react'
 import "./index.css";
 
 
@@ -35,9 +35,27 @@ const languages = [
   }
 ];
 
+function Accordion(props) {
+  const { title, description } = props;
+  const [isOpen, setIsOpen] = useState(false)
+
+  function toggleAccordion() {
+    setIsOpen(isOpen => !isOpen);
+  }
+
+  return (
+    <div className='accordion'>
+      <button onClick={toggleAccordion}>
+        {title} {isOpen ? "" : ""}
+      </button>
+
+      {isOpen && <p>{description}</p>}
+
+    </div>
+  )
+}
 
 function App() {
-
 
   return (
     <div className="bg">
@@ -46,25 +64,19 @@ function App() {
 
         <div className="languages">
           {languages.map(language => {
-            return <div>
-              <button>{language.title}</button>
-
-            </div>
+            return <Accordion
+              key={language.id}
+              title={language.title}
+              description={language.description}
+            />
           })}
-        </div>
-
-        <div>
-          {languages.map(language => {
-            return <div>
-              <p>{language.description}</p>
-            </div>
-          }
-          )}
         </div>
 
       </div>
     </div>
+
   )
+
 }
 
 export default App
