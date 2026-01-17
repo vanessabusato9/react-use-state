@@ -36,11 +36,11 @@ const languages = [
 ];
 
 function Accordion(props) {
-  const { title, description } = props;
-  const [isOpen, setIsOpen] = useState(false)
+  const { id, title, description, openId, setOpenId } = props;
+  const isOpen = openId === id;
 
   function toggleAccordion() {
-    setIsOpen(isOpen => !isOpen);
+    setOpenId(isOpen ? null : id);
   }
 
   return (
@@ -56,6 +56,7 @@ function Accordion(props) {
 }
 
 function App() {
+  const [openId, setOpenId] = useState(null);
 
   return (
     <div className="bg">
@@ -65,9 +66,12 @@ function App() {
         <div className="languages">
           {languages.map(language => {
             return <Accordion
+              id={language.id}
               key={language.id}
               title={language.title}
               description={language.description}
+              openId={openId}
+              setOpenId={setOpenId}
             />
           })}
         </div>
